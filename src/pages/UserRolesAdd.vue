@@ -1,6 +1,7 @@
 <template lang="">
   <div class="content">
     <div class="container-fluid">
+      <router-link class="" to="/admin/user/roles">Back to List</router-link>
       <UserRolesForm />
     </div>
   </div>
