@@ -2,29 +2,22 @@
   <div class="content">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <button :class="['nav-link', components === 'UserList' ? 'active' : '']" @click="components = 'UserList'">List</button>
+        <router-link class="nav-link" to="/admin/user/list">List</router-link>
       </li>
       <li class="nav-item">
-        <button :class="['nav-link', components === 'UserRoles' ? 'active' : '']" @click="components = 'UserRoles'">Roles</button>
+        <router-link class="nav-link" to="/admin/user/roles">Roles</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" to="/admin/user/permissions">Permissions</router-link>
       </li>
     </ul>
-    <component :is="components"/>
+    <router-view></router-view>
   </div>
 </template>
 <script>
-  import UserList from '@/components/UserList.vue'
-  import UserRoles from '@/components/UserRoles.vue'
-  export default {
-    components: {
-      UserList,
-      UserRoles
-    },
-    data () {
-      return {
-        components: "UserList"
-      }
-    }
-  }
+export default {
+  
+}
 </script>
 <style>
 

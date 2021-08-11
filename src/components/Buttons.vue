@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link class="btn btn-primary" :to="url">
+    <router-link class="btn btn-dark" :to="url">
       {{ title }}
     </router-link>
   </div>
@@ -19,6 +19,5 @@ export default {
   }
 }
 </script>
-<style>
-  
+<style scoped>
 </style>

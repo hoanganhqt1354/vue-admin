@@ -10,7 +10,7 @@
             <div class="table-responsive">
               <l-table class="table-hover"
                        :columns="table.columns"
-                       :data="table.data">
+                       :data="roles">
               </l-table>
             </div>
           </card>
@@ -22,13 +22,8 @@
   import LTable from '@/components/Table.vue'
   import Buttons from '@/components/Buttons.vue'
   import Card from '@/components/Cards/Card.vue'
-  const tableColumns = ['Name', 'Operations']
-  const tableData = [
-    {
-      name: 'Administrator',
-      operations: 'edit'
-    },
-  ]
+  import { mapState } from 'vuex'
+  const tableColumns = ['Name']
   export default {
     components: {
       LTable,
@@ -39,10 +34,14 @@
       return {
         table: {
           columns: [...tableColumns],
-          data: [...tableData]
         }
       }
-    }
+    },
+    computed: {
+    ...mapState({
+      roles: state => state.users.roles
+    })
+  }
   }
 </script>
 <style>

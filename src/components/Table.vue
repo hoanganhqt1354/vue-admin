@@ -12,34 +12,36 @@
       <slot :row="item">
         <td v-for="column in columns" :key="column" >
           <template v-if="hasValue(item, column)">
-            <router-link v-if="column.toLowerCase() === 'operations'" to="/user/edit"> {{ itemValue(item, column) }} </router-link>
-            <template v-else>
-              {{ itemValue(item, column) }}
-            </template>
+            {{ itemValue(item, column) }}
           </template>
-         
         </td>
+        <td><Operations :type="type" :id="itemValue(item, 'id')"/></td>      
       </slot>
     </tr>
     </tbody>
   </table>
 </template>
 <script>
-  export default {
-    name: 'l-table',
-    props: {
-      columns: Array,
-      data: Array
+import Operations from '@/components/Operations'
+export default {
+  name: 'l-table',
+  components:{
+    Operations
+  },
+  props: {
+    columns: Array,
+    data: Array,
+    type: String
+  },
+  methods: {
+    hasValue (item, column) {
+      return item[column.toLowerCase()] !== 'undefined'
     },
-    methods: {
-      hasValue (item, column) {
-        return item[column.toLowerCase()] !== 'undefined'
-      },
-      itemValue (item, column) {
-        return item[column.toLowerCase()]
-      }
+    itemValue (item, column) {
+      return item[column.toLowerCase()]
     }
   }
+}
 </script>
 <style>
 </style>
