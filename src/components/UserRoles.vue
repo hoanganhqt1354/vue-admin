@@ -49,7 +49,7 @@
         getRoles: 'GET_ROLES'
       })
     },
-    mixins:[clearMessage],
+
     created() {
       this.getRoles()
     },

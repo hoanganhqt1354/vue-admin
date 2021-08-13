@@ -54,7 +54,6 @@ export default {
       getListUsers: 'GET_LIST_USERS'
     })
   },
-  mixins:[clearMessage],
   created() {
     this.getListUsers()
   },    

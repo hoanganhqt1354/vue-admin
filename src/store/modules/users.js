@@ -35,10 +35,16 @@ export default ({
     },
     SET_NOTIFICATION: (state, payload) => {
       state.notification = payload
+      setTimeout(() => {
+        state.notification = {}
+      }, 3000)
     },
 
     SET_ERROR: (state, payload) => {
       state.error = payload
+      setTimeout(() => {
+        state.error = {}
+      }, 3000)
     },
 
     // USER.
