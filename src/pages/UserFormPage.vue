@@ -12,6 +12,9 @@ import UserForm from '@/components/UserForm'
 export default {
   components: {
     UserForm
+  },
+  destroyed() {
+  console.log('destroy')
   }
 }
 </script>

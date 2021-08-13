@@ -11,8 +11,13 @@
     <tr v-for="(item, index) in data" :key="index">
       <slot :row="item">
         <td v-for="column in columns" :key="column" >
-          <template v-if="hasValue(item, column)">
-            {{ itemValue(item, column) }}
+          <template v-if="hasValue(item, column)">        
+            <template v-if="column === 'Status' && type==='user'">             
+              {{ itemValue(item, column) === true ? 'Active' : 'Unactive' }}             
+            </template>
+            <template v-else>
+              {{ itemValue(item, column) }}
+            </template>
           </template>
         </td>
         <td><Operations :type="type" :id="itemValue(item, 'id')"/></td>      

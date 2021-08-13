@@ -1,5 +1,6 @@
 <template>
-  <div class="container-fluid">
+  <Loading v-if="loading"/>
+  <div v-else class="container-fluid">
     <div class="row">
       <div class="col-12">
         <card class="card-plain">
@@ -22,14 +23,17 @@
 <script>
 import LTable from '@/components/Table.vue'
 import Buttons from '@/components/Buttons.vue'
+import Loading from '@/components/Loading.vue'
 import Card from '@/components/Cards/Card.vue'
-import { mapState } from 'vuex'
-const tableColumns = ['Id', 'Username', 'Status', 'Role']
+import { mapActions, mapState } from 'vuex'
+import clearMessage from '@/mixins/clearMessage'
+const tableColumns = ['Id', 'Name', 'Email','Status', 'Role']
 export default {
   components: {
     LTable,
     Card,
-    Buttons
+    Buttons,
+    Loading
   },
   data () {
     return {
@@ -40,9 +44,20 @@ export default {
   },
   computed: {
     ...mapState({
-      users: state => state.users.users
+      users: state => state.users.users,
+      loading: state => state.users.loading,
+      
     })
-  }
+  },
+  methods: {
+    ...mapActions({
+      getListUsers: 'GET_LIST_USERS'
+    })
+  },
+  mixins:[clearMessage],
+  created() {
+    this.getListUsers()
+  },    
 }
 </script>
 <style>

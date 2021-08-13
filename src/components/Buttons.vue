@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link class="btn btn-dark" :to="url">
+    <router-link class="btn btn-dark btn-fill" :to="url">
       {{ title }}
     </router-link>
   </div>

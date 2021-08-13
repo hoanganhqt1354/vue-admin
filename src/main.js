@@ -7,6 +7,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import LightBootstrap from './light-bootstrap-main'
 
 Vue.config.productionTip = false
+
 Vue.use(LightBootstrap)
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)

@@ -8,12 +8,11 @@ import NotFound from '../pages/NotFoundPage.vue'
 import Icons from '../pages/Icons.vue'
 import UserManagement from '@/pages/UserManagement.vue'
 import UserFormPage from '@/pages/UserFormPage.vue'
-import UserRolesAdd from '@/pages/UserRolesAdd.vue'
+import UserLoginPage from '@/pages/UserLoginPage.vue'
+import UserRolesFormPage from '@/pages/UserRolesFormPage.vue'
 import UserList from '@/components/UserList.vue'
 import UserRoles from '@/components/UserRoles.vue'
 import UserPermissions from '@/components/UserPermissions.vue'
-
-
 
 Vue.use(VueRouter)
 
@@ -21,7 +20,12 @@ const routes = [
   {
     path: '/',
     component: DashboardLayout,
-    redirect: '/admin/user/list'
+    redirect: '/admin'
+  },
+  {
+    path: '/user/login',
+    name: 'UserLogin',
+    component: UserLoginPage,
   },
   {
     path: '/admin',
@@ -64,7 +68,12 @@ const routes = [
       {
         path: 'user/roles/create',
         name: 'UserRolesAdd',
-        component: UserRolesAdd
+        component: UserRolesFormPage
+      },
+      {
+        path: 'user/roles/edit/:id',
+        name: 'UserRolesEdit',
+        component: UserRolesFormPage
       },
       {
         path: 'icons',
@@ -76,6 +85,8 @@ const routes = [
   },
   { path: '*', component: NotFound }
 ]
+
+
 
 const router = new VueRouter({
   mode: 'history',
@@ -89,6 +100,13 @@ const router = new VueRouter({
       return { x: 0, y: 0 }
     }
   }
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('currentUser')
+  console.log(isAuthenticated)
+  if (to.name !== 'UserLogin' && !isAuthenticated) next({ name: 'UserLogin' })
+  else next()
 })
 
 export default router

@@ -15,9 +15,11 @@
   </div>
 </template>
 <script>
-export default {
+import Notification from '@/components/Notification'
+  export default {
+
+  }
   
-}
 </script>
 <style>
 

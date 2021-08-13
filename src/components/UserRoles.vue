@@ -9,6 +9,7 @@
             <Buttons title="Add role" url="/admin/user/roles/create"/>
             <div class="table-responsive">
               <l-table class="table-hover"
+                        type="role"
                        :columns="table.columns"
                        :data="roles">
               </l-table>
@@ -22,8 +23,9 @@
   import LTable from '@/components/Table.vue'
   import Buttons from '@/components/Buttons.vue'
   import Card from '@/components/Cards/Card.vue'
-  import { mapState } from 'vuex'
-  const tableColumns = ['Name']
+  import clearMessage from '@/mixins/clearMessage'
+  import { mapActions, mapState } from 'vuex'
+  const tableColumns = ['Displayname']
   export default {
     components: {
       LTable,
@@ -38,10 +40,20 @@
       }
     },
     computed: {
-    ...mapState({
-      roles: state => state.users.roles
-    })
-  }
+      ...mapState({
+        roles: state => state.users.roles,
+      }),
+    },
+    methods: {
+      ...mapActions({
+        getRoles: 'GET_ROLES'
+      })
+    },
+    mixins:[clearMessage],
+    created() {
+      this.getRoles()
+    },
+    
   }
 </script>
 <style>
