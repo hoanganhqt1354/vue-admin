@@ -40,7 +40,6 @@
 import Card from '@/components/Cards/Card.vue'
 import { mapActions, mapState } from 'vuex'
 import Loading from '@/components/Loading.vue'
-import clearMessage from '@/mixins/clearMessage'
 export default {
   components: {
     Card,
@@ -93,7 +92,6 @@ export default {
       }
     }
   },
-  mixins:['clearMessage'],
 
   created() {
     if ("id" in this.$route.params) {
@@ -101,6 +99,10 @@ export default {
       this.getSingleRole(this.$route.params.id)
     }
   },
+  destroyed() {
+    this.$store.commit('SET_SINGLE_ROLE', {})
+    this.$store.commit('SET_ERROR', {})
+  }
 }
 </script>
 <style lang="">

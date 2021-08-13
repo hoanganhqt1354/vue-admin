@@ -20,6 +20,10 @@ export default ({
       show: false,
       msg: ''
     },
+    error: {
+      show: false,
+      msg: ''
+    },
     single_role: {
       name: '',
       displayname: ''
@@ -31,6 +35,10 @@ export default ({
     },
     SET_NOTIFICATION: (state, payload) => {
       state.notification = payload
+    },
+
+    SET_ERROR: (state, payload) => {
+      state.error = payload
     },
 
     // USER.
@@ -72,7 +80,7 @@ export default ({
         })
         .catch((error) => {
           console.log(error)
-          commit('SET_NOTIFICATION', {show: true, msg: 'Error'}) 
+          commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
         })
         .finally(() => (commit('SET_LOADING', false)))
       
@@ -99,7 +107,7 @@ export default ({
         })
         .catch((error) => {
           console.log(error)
-          commit('SET_NOTIFICATION', {show: true, msg: 'Error'}) 
+          commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
         })
         .finally(() => (commit('SET_LOADING', false)))
     },
@@ -118,7 +126,8 @@ export default ({
         commit('SET_NOTIFICATION', {show: true, msg:res.data.message})
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error", error)
+        commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
       });
     },
     
@@ -137,7 +146,8 @@ export default ({
 
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error", error)
+        commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
       })
       .finally(() => (commit('SET_LOADING', false)))
     },
@@ -156,7 +166,8 @@ export default ({
         commit('SET_NOTIFICATION', {show: true, msg:res.data.message})
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error", error.response)
+        commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
       });
     },
 
@@ -182,7 +193,7 @@ export default ({
         })
         .catch((error) => {
           console.log(error)
-          commit('SET_NOTIFICATION', {show: true, msg: 'Error'}) 
+          commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
         })
         .finally(() => (commit('SET_LOADING', false)))
     },
@@ -202,7 +213,8 @@ export default ({
         commit('SET_NOTIFICATION', {show: true, msg:res.data.message})
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error", error)
+        commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
       });
     },
 
@@ -222,7 +234,7 @@ export default ({
         })
         .catch((error) => {
           console.log(error)
-          commit('SET_NOTIFICATION', {show: true, msg: 'Error'}) 
+          commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
         })
         .finally(() => (commit('SET_LOADING', false)))
     },
@@ -242,7 +254,8 @@ export default ({
         
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error", error)
+        commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
       });
     },
 
@@ -260,7 +273,8 @@ export default ({
         commit('SET_NOTIFICATION', {show: true, msg:res.data.message})
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error", error)
+        commit('SET_ERROR', {show: true, msg: error.response.data.message}) 
       })
       .finally(() => (commit('SET_LOADING', false)))
     },

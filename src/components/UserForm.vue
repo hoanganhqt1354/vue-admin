@@ -169,6 +169,8 @@ export default {
   },
   destroyed() {
     this.$store.commit('SET_SINGLE_USER', {})
+    console.log('destroy form user')
+    this.$store.commit('SET_ERROR', {})
   },
 }
 </script>

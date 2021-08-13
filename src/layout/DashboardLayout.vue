@@ -9,9 +9,8 @@
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>
-
-        <Notification/>
-      
+      <Notification/>
+      <Error/>
       <dashboard-content @click="toggleSidebar">
       </dashboard-content>
       <content-footer></content-footer>
@@ -27,6 +26,7 @@
   import DashboardContent from './Content.vue'
   import MobileMenu from './MobileMenu.vue'
   import Notification from '@/components/Notification'
+  import Error from '@/components/Error'
   import { links } from '@/utils/constants'
   export default {
     data() {
@@ -39,7 +39,8 @@
       ContentFooter,
       DashboardContent,
       MobileMenu,
-      Notification
+      Notification,
+      Error
     },
     methods: {
       toggleSidebar () {
