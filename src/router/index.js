@@ -11,6 +11,8 @@ import UserManagement from '@/pages/UserManagement.vue'
 import UserFormPage from '@/pages/UserFormPage.vue'
 import UserLoginPage from '@/pages/UserLoginPage.vue'
 import UserRolesFormPage from '@/pages/UserRolesFormPage.vue'
+import OverviewPage from '@/pages/OverviewPage.vue'
+import UserProfile from '@/pages/UserProfile.vue'
 import UserList from '@/components/UserList.vue'
 import UserRoles from '@/components/UserRoles.vue'
 import UserPermissions from '@/components/UserPermissions.vue'
@@ -34,8 +36,13 @@ const routes = [
   {
     path: '/admin',
     component: DashboardLayout,
-    redirect: '/admin/user/list',
+    redirect: '/admin/overview',
     children: [
+      {
+        path: 'overview',
+        name: 'Overview',
+        component: OverviewPage,
+      },  
       {
         path: 'user',
         name: 'UserManagement',
@@ -46,6 +53,9 @@ const routes = [
             path: 'list',
             name: 'UserList',
             component: UserList,
+            meta: {
+              user: 'view'
+            },
           },
           {
             path: 'roles',
@@ -64,6 +74,11 @@ const routes = [
             }
           }
         ],
+      },
+      {
+        path: 'profile',
+        name: 'UserProfile',
+        component: UserProfile
       },
       {
         path: 'user/create',
@@ -91,6 +106,7 @@ const routes = [
         name: 'UserRolesEdit',
         component: UserRolesFormPage
       },
+      
       {
         path: 'icons',
         name: 'Icons',

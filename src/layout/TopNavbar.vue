@@ -38,7 +38,7 @@ import { mapGetters } from 'vuex'
       },
       ...mapGetters({
       getCurrentUser: 'GET_CURRENT_USER'
-    }),
+      }),
     },
     data () {
       return {
@@ -63,7 +63,6 @@ import { mapGetters } from 'vuex'
       },
       handleLogout() {
         this.$store.dispatch('LOG_OUT')
-        this.$forceUpdate()
       }
     }
   }

@@ -58,7 +58,7 @@ export default {
         return this.users.filter((user) => user.role_name !== ROLE_ADMIN)
       }
       else if (this.getCurrentUser.role_name === ROLE_PATIENT) {
-        return this.users.filter((user) => user.name !== ROLE_ADMIN && user.name !== ROLE_DOCTOR)
+        return this.users.filter((user) => user.name === ROLE_PATIENT)
       }
       else {
         return this.users

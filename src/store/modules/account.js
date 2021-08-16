@@ -43,7 +43,7 @@ export default {
           const currentUser = res.data
           localStorage.setItem('currentUser', JSON.stringify(currentUser))
           commit('LOGIN_SUCCESS', currentUser)
-          router.push({name:'UserManagement'})
+          router.push({name:'Overview'})
         })
         .catch((error) => {
           console.log(error)

@@ -163,7 +163,7 @@ export default {
       // const statusInt = parseInt(this.user.status)
       const roleIdInt = parseInt(this.user.role_id)
       if (this.editing === true) {
-        const idInt = parseInt(this.$route.params.id)
+        const idInt = parseInt(this.$route.params.id) ||  parseInt(this.getCurrentUser.id)
         let payload = {...this.user, role_id: roleIdInt, id: idInt}
         this.updateUser(payload)
       }
@@ -176,9 +176,10 @@ export default {
 
   },
   created() {
-    if ("id" in this.$route.params) {
+    if ("id" in this.$route.params || this.getCurrentUser.id) {
       this.editing = true;
-      this.getSingleUser(this.$route.params.id)
+      const id = this.$route.params.id || this.getCurrentUser.id
+      this.getSingleUser(id)
     }
     this.getRoles()
   },
