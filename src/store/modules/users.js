@@ -52,7 +52,6 @@ export default ({
       state.users = payload
     },
     SET_SINGLE_USER: (state, payload) => {
-      console.log({...payload})
       state.single_user = payload
     },
     DELETE_USER: (state, payload) => {
@@ -99,7 +98,6 @@ export default ({
         .get(`${api_url}api/Users/${id}`)
         .then((res) => {
           const single_user = res.data
-          console.log(single_user)
           const { name, email, password, firstname, lastname, role_id, status} = single_user
           const payload = {
             name,
@@ -206,7 +204,6 @@ export default ({
 
     // Add roles.
     ADD_USER_ROLES: ({commit}, payload) => {
-      console.log(payload)
       axios({
         method: 'post',
         url: `${api_url}api/UserRoles/register`,
@@ -255,7 +252,6 @@ export default ({
           'Content-Type': 'application/json',
         }
       }).then((res) => {
-        console.log(res)
         commit('SET_NOTIFICATION', {show: true, msg:res.data.message})
         
       })

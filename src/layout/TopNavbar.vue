@@ -14,7 +14,10 @@
         <span class="navbar-toggler-bar burger-lines"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end">  
-        <ul class="navbar-nav ml-auto">        
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <span>Welcome {{ getCurrentUser.name }} !</span>
+          </li>        
           <li class="nav-item">
             <a href="#" class="nav-link" @click.prevent="handleLogout">
               Log out
@@ -26,12 +29,16 @@
   </nav>
 </template>
 <script>
+import { mapGetters } from 'vuex'
   export default {
     computed: {
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
-      }
+      },
+      ...mapGetters({
+      getCurrentUser: 'GET_CURRENT_USER'
+    }),
     },
     data () {
       return {
@@ -56,6 +63,7 @@
       },
       handleLogout() {
         this.$store.dispatch('LOG_OUT')
+        this.$forceUpdate()
       }
     }
   }

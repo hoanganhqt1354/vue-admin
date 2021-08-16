@@ -54,7 +54,7 @@
       <div class="row">
         <div class="col-12">
           <label>Role</label>
-          <div v-for="(role, key) in roles" ::key="key" class="form-check">
+          <div v-for="(role, key) in filterRoles" ::key="key" class="form-check">
             <input type="radio" :value="role.id" :id="role.name" name="role" v-model="user.role_id">
 
             <label class="form-check-label" :for="role.name">
@@ -108,7 +108,8 @@
 <script>
 import Card from '@/components/Cards/Card.vue'
 import Loading from '@/components/Loading.vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
+import { ROLE_ADMIN, ROLE_DOCTOR, ROLE_PATIENT } from '@/utils/constants'
 export default {
   components: {
     Card,
@@ -125,7 +126,21 @@ export default {
       roles: state => state.users.roles,
       user: state => state.users.single_user,
       loading: state => state.users.loading,
-    })
+    }),
+    ...mapGetters({
+      getCurrentUser: 'GET_CURRENT_USER'
+    }),
+    filterRoles() {
+      if (this.getCurrentUser.role_name === ROLE_DOCTOR) {
+        return this.roles.filter((role) => role.name !== ROLE_ADMIN)
+      }
+      else if (this.getCurrentUser.role_name === ROLE_PATIENT) {
+        return this.roles.filter((role) => role.name !== ROLE_ADMIN && role.name !== ROLE_DOCTOR)
+      }
+      else {
+        return this.roles
+      }
+    }
   },
   methods: {
     ...mapActions({
@@ -169,7 +184,6 @@ export default {
   },
   destroyed() {
     this.$store.commit('SET_SINGLE_USER', {})
-    console.log('destroy form user')
     this.$store.commit('SET_ERROR', {})
   },
 }

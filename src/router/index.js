@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import DashboardLayout from '../layout/DashboardLayout.vue'
 // GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
+import AccessDenied from '../pages/AccessDeniedPage.vue'
 
 // Admin pages
 import Icons from '../pages/Icons.vue'
@@ -13,6 +14,9 @@ import UserRolesFormPage from '@/pages/UserRolesFormPage.vue'
 import UserList from '@/components/UserList.vue'
 import UserRoles from '@/components/UserRoles.vue'
 import UserPermissions from '@/components/UserPermissions.vue'
+
+// constants
+import { ROLE_ADMIN, ROLE_DOCTOR, ROLE_PATIENT } from '@/utils/constants'
 
 Vue.use(VueRouter)
 
@@ -47,23 +51,35 @@ const routes = [
             path: 'roles',
             name: 'UserRoles',
             component: UserRoles,
+            meta:{
+              isOnlyAdmin: true
+            }
           },
           {
             path: 'permissions',
             name: 'UserPermissions',
             component: UserPermissions,
+            meta:{
+              isOnlyAdmin: true
+            }
           }
         ],
       },
       {
         path: 'user/create',
         name: 'UserAddPage',
-        component: UserFormPage
+        component: UserFormPage,
+        meta: {
+          user: 'add'
+        }
       },
       {
         path: 'user/edit/:id',
         name: 'UserEditPage',
-        component: UserFormPage
+        component: UserFormPage,
+        meta: {
+          user: 'edit'
+        }
       },
       {
         path: 'user/roles/create',
@@ -83,7 +99,9 @@ const routes = [
       
     ]
   },
-  { path: '*', component: NotFound }
+  { path: '*', name:'NotFound' ,component: NotFound },
+  { path: '/404', name:'404' ,component: NotFound },
+  { path: '/403', name:'403' ,component: AccessDenied },
 ]
 
 
@@ -104,8 +122,20 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('currentUser')
-  console.log(isAuthenticated)
+  const infoUser = JSON.parse(isAuthenticated)
   if (to.name !== 'UserLogin' && !isAuthenticated) next({ name: 'UserLogin' })
+
+  if (to.matched.some((record) => record.meta.isOnlyAdmin)) {
+    if (infoUser.role_name !== ROLE_ADMIN) next({ name: '403' })
+    else next()
+  }
+
+  if (to.matched.some((record) => record.meta.user)) {
+    const permission =  JSON.parse(infoUser.permission)
+    if (permission.user.indexOf(to.meta.user) > -1) next()
+    else next({ name: '403' })
+  }
+
   else next()
 })
 

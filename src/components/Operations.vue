@@ -1,9 +1,9 @@
 <template lang="">
   <div v-if="type === 'user'">
-    <router-link class="btn btn-primary btn-sm btn-fill mr-2" :to="{name: 'UserEditPage', params: {id}}"> 
+    <router-link v-if="checkPermission('edit')" class="btn btn-primary btn-sm btn-fill mr-2" :to="{name: 'UserEditPage', params: {id}}"> 
       Edit 
     </router-link>
-    <button class="btn btn-danger btn-fill btn-sm" @click="handleDeleteUser(id)"> 
+    <button v-if="checkPermission('delete')" class="btn btn-danger btn-fill btn-sm" @click="handleDeleteUser(id)"> 
       Delete 
     </button>
   </div>
@@ -17,7 +17,8 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
+import { checkPermission } from '@/utils/permission'
 export default {
   props: {
     id: Number,
@@ -26,7 +27,10 @@ export default {
   computed:{
     ...mapState({
       users: state => state.users.users,
-    })
+    }),
+    ...mapGetters({
+      getCurrentUser: 'GET_CURRENT_USER'
+    }),
   },
   methods: {
     ...mapActions({
@@ -42,7 +46,8 @@ export default {
       if(confirm("Do you really want to delete?")){
         this.deleteRole(id)
       }
-    }
+    },
+    checkPermission
   }
 }
 </script>

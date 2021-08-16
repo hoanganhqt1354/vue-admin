@@ -36,7 +36,7 @@ export default {
   props: {
     columns: Array,
     data: Array,
-    type: String
+    type: String,
   },
   methods: {
     hasValue (item, column) {

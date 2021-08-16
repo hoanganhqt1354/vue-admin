@@ -1,5 +1,6 @@
 import axios from "axios"
 import router from "../../router"
+import users from "./users"
 const api_url = process.env.VUE_APP_API_URL
 const currentUser = JSON.parse(localStorage.getItem('currentUser')) || null
 export default {
@@ -53,9 +54,14 @@ export default {
     },
     LOG_OUT:({commit}) => {
       commit('LOGOUT')
-      console.log('logout')
       localStorage.removeItem('currentUser')
       router.push({name:'UserLogin'})
     },
   },
+  getters: {
+    GET_CURRENT_USER: (state) => {
+      const infoUser = state.user
+      return infoUser
+    }
+  }
 }

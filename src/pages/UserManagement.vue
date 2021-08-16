@@ -4,10 +4,10 @@
       <li class="nav-item">
         <router-link class="nav-link" to="/admin/user/list">List</router-link>
       </li>
-      <li class="nav-item">
+      <li v-if="checkOnlyAdmin" class="nav-item">
         <router-link class="nav-link" to="/admin/user/roles">Roles</router-link>
       </li>
-      <li class="nav-item">
+      <li v-if="checkOnlyAdmin" class="nav-item">
         <router-link class="nav-link" to="/admin/user/permissions">Permissions</router-link>
       </li>
     </ul>
@@ -15,10 +15,18 @@
   </div>
 </template>
 <script>
-import Notification from '@/components/Notification'
-  export default {
-
+import { mapGetters } from 'vuex'
+import { ROLE_ADMIN } from '@/utils/constants'
+export default {
+  computed:{
+    ...mapGetters({
+      getCurrentUser: 'GET_CURRENT_USER'
+    }),
+    checkOnlyAdmin() {
+      if (this.getCurrentUser.role_name === ROLE_ADMIN) return true
+    }
   }
+}
   
 </script>
 <style>

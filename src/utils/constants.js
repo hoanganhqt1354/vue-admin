@@ -34,4 +34,8 @@ export const permissions = {
     },
   ],
 }
+
+export const ROLE_ADMIN = 'administrator'
+export const ROLE_DOCTOR = 'doctor'
+export const ROLE_PATIENT = 'patient'
   
